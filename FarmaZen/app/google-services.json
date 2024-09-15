@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "893773764481",
+    "project_id": "app-farmacia-811fb",
+    "storage_bucket": "app-farmacia-811fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893773764481:android:d23692c2e5338a68e8ba80",
+        "android_client_info": {
+          "package_name": "udb.edu.sv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiAv28H7K4P7btvh0K_2fw5DNEfKWmQU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

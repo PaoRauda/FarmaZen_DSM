@@ -1,0 +1,23 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Color primario -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorTextIcons</item>
+
+        <!-- Color secundario -->
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSecondaryVariant">@color/colorPrimary</item>
+        <item name="colorOnSecondary">@color/colorTextIcons</item>
+
+        <!-- Colores de fondo y superficie -->
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorTextIcons</item>
+
+        <!-- Color de error -->
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorTextIcons</item>
+    </style>
+</resources>
+

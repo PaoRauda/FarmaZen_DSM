@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FarmaZen</string>
+    <string name="hint_editTextEmailAddress">Correo Electrónico</string>
+    <string name="hint_txtPassword">Contraseña</string>
+    <string name="btnlogin_text">Autenticar</string>
+    <string name="login_textView">¿No tienes una cuenta?</string>
+    <string name="login_textView2">Registrar</string>
+    <string name="item_logout">Cerrar Sesion</string>
+    <string name="buttonViewCart">Ver Canasta</string>
+    <string name="buttonViewHistory">Ver Historial</string>
+</resources>
