@@ -3,32 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/colorBackground">
 
     <TextView
         android:id="@+id/medicamentoNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/colorTextIcons" />
 
     <TextView
         android:id="@+id/medicamentoPrecio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/colorTextIcons" />
 
     <TextView
         android:id="@+id/medicamentoCantidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"
+        android:textColor="@color/colorTextIcons" />
 
     <Button
         android:id="@+id/btnAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar"
+        android:text="@string/btnAgregar"
+        android:textColor="@color/colorTextIcons"
+        android:background="@color/colorAccent"
         android:layout_marginTop="8dp" />
 </LinearLayout>

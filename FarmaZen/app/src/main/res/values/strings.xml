@@ -8,4 +8,11 @@
     <string name="item_logout">Cerrar Sesion</string>
     <string name="buttonViewCart">Ver Canasta</string>
     <string name="buttonViewHistory">Ver Historial</string>
+    <string name="etRegisterEmail">Correo electrónico</string>
+    <string name="etRegisterPassword">Contraseña</string>
+    <string name="btnRegister">Registrarse</string>
+    <string name="btnLogin">Iniciar sesión</string>
+    <string name="textViewTotal">Total: 0 USD</string>
+    <string name="buttonCompra">Comprar</string>
+    <string name="btnAgregar">Agregar</string>
 </resources>

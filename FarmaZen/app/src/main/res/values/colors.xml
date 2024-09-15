@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    colorWhite
+    <color name="colorWhite">#ffffff</color>
     <color name="colorPrimaryDark">#689f38</color>
     <color name="colorPrimaryLight">#dcedc8</color>
     <color name="colorPrimary">#8bc34a</color>
@@ -14,7 +16,7 @@
     <color name="colorBackground">#dcedc8</color>
 
     <!-- Color de superficie -->
-    <color name="colorSurface">#dcedc8</color>
+    <color name="colorSurface">#9EB484</color>
 
     <!-- Color de error  -->
     <color name="colorError">#b71c1c</color>

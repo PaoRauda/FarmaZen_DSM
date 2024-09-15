@@ -38,28 +38,24 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Configurar la Toolbar como la barra de acción
+        //Configuración de la Toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
 
-        // Inicializar el adaptador con una lista vacía
+        // Inicializar el adaptador
         adapter = MedicamentoAdapter(emptyList()) { medicamento ->
-            // Acción para añadir el medicamento a la canasta
             addToCart(medicamento)
         }
 
         recyclerView.adapter = adapter
 
-        // Inicializar Firebase Database
+        //Inicializar Firebase Database
         database = FirebaseDatabase.getInstance().reference
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: "default_user_id"
-
-
-        // Obtener la referencia a la base de datos de medicamentos
         val medicamentosRef = database.child("medicamentos")
 
-        // Leer datos de Firebase
+        //Leer datos de Firebase
         medicamentosRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val medicamentoList = mutableListOf<Medicamento>()
@@ -67,16 +63,14 @@ class MainActivity : AppCompatActivity() {
                     val medicamento = dataSnapshot.getValue(Medicamento::class.java)
                     medicamento?.let { medicamentoList.add(it) }
                 }
-                // Actualizar el RecyclerView con la lista de medicamentos
+
                 adapter = MedicamentoAdapter(medicamentoList) { medicamento ->
-                    // Acción para añadir el medicamento a la canasta
                     addToCart(medicamento)
                 }
                 recyclerView.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Manejo de errores
                 Toast.makeText(this@MainActivity, "Error al cargar medicamentos: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -86,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addToCart(medicamento: Medicamento) {
         Log.d("MainActivity", "Intentando agregar a la canasta: ${medicamento.nombre}")
-        // Referencia a la base de datos de la canasta del usuario
+
         val canastaRef = database.child("usuarios").child(userId).child("canasta").child(medicamento.nombre)
 
         canastaRef.runTransaction(object : Transaction.Handler {
@@ -94,10 +88,8 @@ class MainActivity : AppCompatActivity() {
                 val currentItem = currentData.getValue(Medicamento::class.java)
 
                 if (currentItem == null) {
-                    // Si el medicamento no está en la canasta, añádelo
                     currentData.value = medicamento
                 } else {
-                    // Si ya está en la canasta, actualiza la cantidad
                     currentItem.cantidad += medicamento.cantidad
                     currentData.value = currentItem
                 }
@@ -107,7 +99,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onComplete(error: DatabaseError?, committed: Boolean, currentData: DataSnapshot?) {
                 if (error != null) {
-                    // Manejo de errores
                     Toast.makeText(this@MainActivity, "Error al añadir medicamento a la canasta: ${error.message}", Toast.LENGTH_SHORT).show()
                 } else if (committed) {
                     Toast.makeText(this@MainActivity, "Medicamento añadido a la canasta", Toast.LENGTH_SHORT).show()
@@ -115,15 +106,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Configurar los botones
-        val buttonViewCart = findViewById<Button>(R.id.buttonViewCart)
-        buttonViewCart.setOnClickListener {
-            goToCanasta()
-        }
-        val buttonViewHistory = findViewById<Button>(R.id.buttonViewHistory)
-        buttonViewHistory.setOnClickListener {
-            goToHistorial()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

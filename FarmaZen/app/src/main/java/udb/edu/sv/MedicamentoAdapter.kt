@@ -22,15 +22,20 @@ class MedicamentoAdapter(
         private val cantidadTextView: TextView = itemView.findViewById(R.id.medicamentoCantidad)
         private val addToCartButton: Button = itemView.findViewById(R.id.btnAgregar)
 
+
         fun bind(medicamento: Medicamento) {
             nombreTextView.text = medicamento.nombre
             precioTextView.text = "${medicamento.precio} USD"
             cantidadTextView.text  = "Unidades:" + medicamento.cantidad.toString()
 
+            addToCartButton.text = buttonText
+
             addToCartButton.setOnClickListener {
                 onAddToCartClick(medicamento)
             }
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicamentoViewHolder {

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/colorBackground">
 
     <EditText
         android:id="@+id/etRegisterEmail"
@@ -11,9 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:hint="Correo electrónico"
+        android:hint="@string/etRegisterEmail"
         android:inputType="textEmailAddress"
-        android:minHeight="48dp"/>
+        android:minHeight="48dp"
+        android:textColor="@color/colorTextIcons"
+    android:background="@color/colorSurface"/>
 
     <EditText
         android:id="@+id/etRegisterPassword"
@@ -22,9 +25,11 @@
         android:layout_below="@id/etRegisterEmail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:hint="Contraseña"
+        android:hint="@string/etRegisterPassword"
         android:inputType="textPassword"
-        android:minHeight="48dp"/>
+        android:minHeight="48dp"
+        android:textColor="@color/colorTextIcons"
+    android:background="@color/colorSurface"/>
 
     <Button
         android:id="@+id/btnRegister"
@@ -33,7 +38,9 @@
         android:layout_below="@id/etRegisterPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Registrarse" />
+        android:text="@string/btnRegister"
+        android:textColor="@color/colorTextIcons"
+    android:background="?attr/colorPrimary"/>
 
     <Button
         android:id="@+id/btnLogin"
@@ -42,6 +49,8 @@
         android:layout_below="@id/btnRegister"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Iniciar sesión" />
+        android:text="@string/btnLogin"
+        android:textColor="@color/colorTextIcons"
+    android:background="@color/colorPrimary"/>
 
 </RelativeLayout>

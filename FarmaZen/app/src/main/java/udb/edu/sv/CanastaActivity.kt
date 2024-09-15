@@ -1,11 +1,15 @@
 package udb.edu.sv
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,20 +43,24 @@ class CanastaActivity : AppCompatActivity() {
         textViewTotal = findViewById(R.id.textViewTotal)
         buttonCompra = findViewById(R.id.buttonCompra)
 
+
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Inicializar el adaptador con una lista vacía
+        //Configuración de la Toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbarCanasta)
+        setSupportActionBar(toolbar)
+
+        //Inicializar el adaptador
         adapter = MedicamentoAdapter(emptyList()) { medicamento ->
-            // Acción para eliminar el medicamento de la canasta (opcional)
         }
         recyclerView.adapter = adapter
 
-        // Referencia a la base de datos de Firebase
+        //Referencia a Firebase
         database = FirebaseDatabase.getInstance().reference
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: "default_user_id"
         val canastaRef = database.child("usuarios").child(userId).child("canasta")
 
-        // Leer datos de Firebase
+        //Leer datos de Firebase
         canastaRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val canastaList = mutableListOf<Medicamento>()
@@ -72,6 +80,7 @@ class CanastaActivity : AppCompatActivity() {
                 textViewTotal.text = "Total: $total USD"
 
                 adapter.updateAddToCartButtonText("Eliminar")
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -81,7 +90,6 @@ class CanastaActivity : AppCompatActivity() {
         })
 
         buttonCompra.setOnClickListener {
-            // Lógica para proceder con la compra
             realizarCompra()
         }
     }
@@ -100,16 +108,16 @@ class CanastaActivity : AppCompatActivity() {
 
 
     private fun realizarCompra() {
-        // Obtener la referencia a la base de datos de Firebase
+        //se obtener la referencia a la base de datos de Firebase
         val database = FirebaseDatabase.getInstance().reference
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: "default_user_id"
         val canastaRef = database.child("usuarios").child(userId).child("canasta")
         val historialRef = database.child("usuarios").child(userId).child("historial")
 
-        // Obtener la fecha actual para la compra
+        //Se obtiene la fecha actual para la compra
         val fecha = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
-        // Obtener la lista de medicamentos en la canasta
+        //Se obtiene la lista de medicamentos en la canasta
         canastaRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val items = mutableMapOf<String, Int>()
@@ -123,17 +131,17 @@ class CanastaActivity : AppCompatActivity() {
                     }
                 }
 
-                // Crear un objeto Compra con los detalles
+                //Se crea un objeto con los datos
                 val compra = Compra(
                     fecha = fecha,
                     total = total,
                     items = items
                 )
 
-                // Guardar la compra en el historial del usuario
+                //Guardar la compra en el historial del usuario
                 historialRef.push().setValue(compra).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Limpiar la canasta después de guardar la compra
+                        //Limpiar la canasta
                         canastaRef.removeValue().addOnCompleteListener { canastaTask ->
                             if (canastaTask.isSuccessful) {
                                 Toast.makeText(this@CanastaActivity, "Compra realizada con éxito", Toast.LENGTH_SHORT).show()
@@ -148,10 +156,46 @@ class CanastaActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Manejo de errores
                 Toast.makeText(this@CanastaActivity, "Error al obtener los datos de la canasta: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.activity_canasta -> {
+                goToCanasta()
+                true
+            }
+            R.id.action_view_history -> {
+                goToHistorial()
+                true
+            }
+            R.id.action_sign_out -> {
+                FirebaseAuth.getInstance().signOut().also {
+                    Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun goToCanasta() {
+        val intent = Intent(this, CanastaActivity::class.java)
+        startActivity(intent)
+    }
+    private fun goToHistorial() {
+        val intent = Intent(this, HistorialActivity::class.java)
+        startActivity(intent)
     }
 
 }
